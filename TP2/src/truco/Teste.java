@@ -3,6 +3,7 @@ package truco;
 public class Teste {
 
 	public static void main(String[] args) {
+		// Teste Lucas
 		Jogador jogador1 = new Jogador("Guilherme", "guirangel");
 		Jogador jogador2 = new Jogador("Eloisa", "elorangel");
 		Jogador jogador3 = new Jogador("Camila", "carangel");
