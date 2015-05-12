@@ -19,9 +19,8 @@ public class BaralhoTruco extends Baralho {
 			}
 		}
 	}
-	
-	protected CartaTruco criaCarta(int naipe, int valor) 
-	{
+
+	protected CartaTruco criaCarta(int naipe, int valor) {
 		return new CartaTruco(naipe, valor);
 	}
 }

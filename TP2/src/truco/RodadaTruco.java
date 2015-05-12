@@ -56,8 +56,6 @@ public class RodadaTruco
 	public MaoJogadorTruco getMaoJogador4() {
 		return maoJogador4;
 	}
-	
-	public void setMaoJogador4(MaoJogadorTruco maoJogador4) {
-		this.maoJogador4 = maoJogador4;
-	}
 }
+	
+

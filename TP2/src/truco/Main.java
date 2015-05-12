@@ -43,6 +43,6 @@ public class Main {
 		Partida partida = new Partida();
 		System.out.println(jogador1.getNome());
 		*/
-		
 	}
+
 }
