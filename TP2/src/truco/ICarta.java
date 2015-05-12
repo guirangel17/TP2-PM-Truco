@@ -14,6 +14,5 @@ public interface ICarta
 	
 	public int getNaipe();
 	public int getValor();
-	public int getOrdemImportancia();
 	public String getNome();
 }

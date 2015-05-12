@@ -1,6 +1,6 @@
 package truco;
 
-public interface IPartida 
+public interface IPartidaTruco 
 {
 	public static final int COMUM = 2;
 	public static final int TRUCO = 4;

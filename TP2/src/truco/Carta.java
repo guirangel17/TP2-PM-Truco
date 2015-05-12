@@ -2,94 +2,44 @@ package truco;
 
 public class Carta implements ICarta
 {
-	private final int naipe;
-	private final int valor;
-	private final int ordemImportancia;
-	private final String nome;
+	protected final int naipe;
+	protected final String nome;
+	protected int valor;
 	
-	private static final String[] naipesToString = 
+	protected static final String[] naipesToString = 
 	{
-		"espadas", "copas", "ouros", "paus"	
+		"copas",
+		"espadas",
+		"ouros",
+		"paus"	
 	};
-		
-	private static final String[] valoresToString = 
+
+	protected static final String[] valoresToString = 
 	{
-		"vazio","As","Dois","Três","Quatro","Cinco",
-		"Seis","Sete","Oito","Nove","Dez",
-		"Valete","Dama","Rei"	
+		"vazio", // indice 0 = vazio
+		"As",
+		"Dois",
+		"Três",
+		"Quatro",
+		"Cinco",
+		"Seis",
+		"Sete",
+		"Oito",
+		"Nove",
+		"Dez",
+		"Valete",
+		"Dama",
+		"Rei"	
 	};
 	
-	public Carta(int naipe, int valor)
-	{
+	public Carta(int naipe, int valor) {
 		this.naipe = naipe;
 		this.valor = valor;
-		this.ordemImportancia = calculaValorImportancia();
-		this.nome = valoresToString[getValor()]+" de "+
-	             naipesToString[getNaipe()];
+		this.nome = valoresToString[getValor()] + " de " + naipesToString[getNaipe()];
 	}
 	
-	private int calculaValorImportancia()
-	{
-		switch(this.valor)
-		{
-			case ICarta.AS:
-				if(this.naipe == ICarta.ESPADAS)
-				{
-					return 12;
-				}
-				else
-				{
-					return 8;
-				}
-			
-			case 2:
-				return 9;
-			
-			case 3:
-				return 10;
-			
-			case 4:
-				if(this.naipe == ICarta.PAUS)
-				{
-					return 14;
-				}
-				else
-				{
-					return 1;
-				}
-			
-			case 5:
-				return 2;
-			
-			case 6:
-				return 3;
-			
-			case 7:
-				if(this.naipe == ICarta.COPAS)
-				{
-					return 13;
-				}
-				else if(this.naipe == ICarta.OUROS)
-				{
-					return 11;
-				}
-				else
-				{
-					return 4;
-				}
-				
-			case ICarta.VALETE:
-				return 6;
-			
-			case ICarta.DAMA:
-				return 5;
-			
-			case ICarta.REI:
-				return 7;	
-			
-			default:
-				return 0;
-		}			
+	protected int calculaValorImportancia() {
+		return getValor();	
 	}
 
 	public int getNaipe() {
@@ -100,11 +50,23 @@ public class Carta implements ICarta
 		return valor;
 	}
 
-	public int getOrdemImportancia() {
-		return ordemImportancia;
-	}
-
 	public String getNome() {
 		return nome;
+	}
+	
+	public static int menorValor() {
+		return AS;
+	}
+	
+	public static int maiorValor() {
+		return REI;
+	}
+	
+	public static int primeiroNaipe() {
+		return COPAS;
+	}
+	
+	public static int ultimoNaipe() {
+		return PAUS;
 	}
 }
