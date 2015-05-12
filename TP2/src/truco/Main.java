@@ -30,19 +30,20 @@ public class Main {
 		}
 		*/
 		
+		// ----- Leitura de 4 jogadores: <nome> e <login>
 		Jogador jogador1 = new Jogador("Guilherme", "guirangel");
 		Jogador jogador2 = new Jogador("Eloisa", "elorangel");
 		Jogador jogador3 = new Jogador("Camila", "carangel");
 		Jogador jogador4 = new Jogador("Julio", "jurangel");
 		
+		// ----- Formação das duplas: jogadores escolhem com quem vao jogar
 		Dupla dupla1 = new Dupla(jogador1, jogador2);
 		Dupla dupla2 = new Dupla(jogador3, jogador4);
 		
+		// ----- Instancia de um novo jogo: conjunto de partidas
 		// Jogo jogo = new Jogo
-		/*
-		Partida partida = new Partida();
-		System.out.println(jogador1.getNome());
-		*/
-		
+
+		// ----- Instancia de uma nova partida: conjunto de 3 ou 2 rodadas
+		PartidaTruco partida = new PartidaTruco(dupla1, dupla2);
 	}
 }
