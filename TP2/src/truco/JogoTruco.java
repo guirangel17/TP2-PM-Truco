@@ -2,8 +2,7 @@ package truco;
 
 import java.util.ArrayList;
 
-public class Jogo 
-{
+public class JogoTruco {
 	// Partidas pertencentes ao jogo
 	private ArrayList<PartidaTruco> partidas;
 	
@@ -12,24 +11,29 @@ public class Jogo
 	private Dupla dupla2;
 	private int pontuacaoDupla1;
 	private int pontuacaoDupla2;
+	private boolean abandonarDupla1; // Caso algum jogador deseje abandonar o jogo
+	private boolean abandonarDupla2;
 	
-	public Jogo(Dupla dupla1, Dupla dupla2) 
-	{
+	public JogoTruco(Dupla dupla1, Dupla dupla2) {
 		partidas = new ArrayList<PartidaTruco>();
 		this.dupla1 = dupla1;
-		this.dupla2 = dupla2;		
+		this.dupla2 = dupla2;
 	}
 	
-	public void comecarNovoJogo()
-	{
+	public void comecarNovaPartida() {
 		PartidaTruco novaPartida = new PartidaTruco(this);
-		this.partidas.add(novaPartida);
-		
-		// Verificar quem ganhou a ultima partida e atualizar a pontuacao da dupla
+		novaPartida.comecarNovaRodada();
+		partidas.add(novaPartida);
 	}
 	
-	// Pode ter aqui um método para imprimir a pontuação de cada dupla
-
+	public ArrayList<PartidaTruco> getPartidas() {
+		return partidas;
+	}
+	
+	public void setPartidas(ArrayList<PartidaTruco> partidas) {
+		this.partidas = partidas;
+	}
+	
 	public int getPontuacaoDupla1() {
 		return pontuacaoDupla1;
 	}
@@ -44,6 +48,22 @@ public class Jogo
 
 	public void setPontuacaoDupla2(int pontuacaoDupla2) {
 		this.pontuacaoDupla2 = pontuacaoDupla2;
+	}
+	
+	public boolean getAbandonarDupla1() {
+		return abandonarDupla1;
+	}
+	
+	public void setAbandonarDupla1(boolean abandonarDupla1) {
+		this.abandonarDupla1 = abandonarDupla1;
+	}
+	
+	public boolean getAbandonarDupla2() {
+		return abandonarDupla2;
+	}
+	
+	public void setAbandonarDupla2(boolean abandonarDupla2) {
+		this.abandonarDupla2 = abandonarDupla2;
 	}
 
 	public Dupla getDupla1() {

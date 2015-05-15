@@ -1,19 +1,13 @@
 package truco;
 
-public class RodadaTruco 
-{
+public class RodadaTruco {
 	private PartidaTruco partida;
 	private MaoJogadorTruco maoJogador1;
 	private MaoJogadorTruco maoJogador2;
 	private MaoJogadorTruco maoJogador3;
 	private MaoJogadorTruco maoJogador4;
 	
-	public RodadaTruco(PartidaTruco partida, 
-					   MaoJogadorTruco maoJogador1, 
-					   MaoJogadorTruco maoJogador2, 
-					   MaoJogadorTruco maoJogador3, 
-					   MaoJogadorTruco maoJogador4)
-	{
+	public RodadaTruco(PartidaTruco partida, MaoJogadorTruco maoJogador1, MaoJogadorTruco maoJogador2, MaoJogadorTruco maoJogador3, MaoJogadorTruco maoJogador4) {
 		this.partida = partida;
 		this.maoJogador1 = maoJogador1;
 		this.maoJogador2 = maoJogador2;
@@ -57,5 +51,3 @@ public class RodadaTruco
 		return maoJogador4;
 	}
 }
-	
-
