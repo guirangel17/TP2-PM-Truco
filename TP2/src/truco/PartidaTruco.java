@@ -65,4 +65,8 @@ public class PartidaTruco {
 	public void setTipoPartidaTruco(int tipoPartida) {
 		this.tipoPartida = tipoPartida;
 	}
+	
+	public int getNumeroRodadas() {
+		return rodadas.size();
+	}
 }

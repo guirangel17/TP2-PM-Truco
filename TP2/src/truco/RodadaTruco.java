@@ -50,4 +50,24 @@ public class RodadaTruco {
 	public MaoJogadorTruco getMaoJogador4() {
 		return maoJogador4;
 	}
+	
+	public void JogaCartaJogador1(int indexCarta) {
+		maoJogador1.getCartas().remove(indexCarta);
+	}
+	
+	public void JogaCartaJogador2(int indexCarta) {
+		maoJogador2.getCartas().remove(indexCarta);
+	}
+	
+	public void JogaCartaJogador3(int indexCarta) {
+		maoJogador3.getCartas().remove(indexCarta);
+	}
+	
+	public void JogaCartaJogador4(int indexCarta) {
+		maoJogador4.getCartas().remove(indexCarta);
+	}
+	
+	public int vencedorRodada() {
+		return 0; // ??? como faz
+	}
 }

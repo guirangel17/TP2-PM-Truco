@@ -30,5 +30,9 @@ public class MaoJogadorTruco {
 		this.jogador = jogador;
 	}
 	
+	public int getNumeroCartas() {
+		return cartas.size();
+	}
+	
 	// terá um método de retirar carta do arrayList, que quer dizer que a carta foi jogada
 }

@@ -11,8 +11,6 @@ public class JogoTruco {
 	private Dupla dupla2;
 	private int pontuacaoDupla1;
 	private int pontuacaoDupla2;
-	private boolean abandonarDupla1; // Caso algum jogador deseje abandonar o jogo
-	private boolean abandonarDupla2;
 	
 	public JogoTruco(Dupla dupla1, Dupla dupla2) {
 		partidas = new ArrayList<PartidaTruco>();
@@ -49,22 +47,6 @@ public class JogoTruco {
 	public void setPontuacaoDupla2(int pontuacaoDupla2) {
 		this.pontuacaoDupla2 = pontuacaoDupla2;
 	}
-	
-	public boolean getAbandonarDupla1() {
-		return abandonarDupla1;
-	}
-	
-	public void setAbandonarDupla1(boolean abandonarDupla1) {
-		this.abandonarDupla1 = abandonarDupla1;
-	}
-	
-	public boolean getAbandonarDupla2() {
-		return abandonarDupla2;
-	}
-	
-	public void setAbandonarDupla2(boolean abandonarDupla2) {
-		this.abandonarDupla2 = abandonarDupla2;
-	}
 
 	public Dupla getDupla1() {
 		return dupla1;
@@ -72,5 +54,9 @@ public class JogoTruco {
 
 	public Dupla getDupla2() {
 		return dupla2;
+	}
+	
+	public int getNumeroPartidas() {
+		return partidas.size();
 	}
 }
