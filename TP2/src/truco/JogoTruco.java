@@ -19,11 +19,19 @@ public class JogoTruco {
 	}
 	
 	public void comecarNovoJogo() {
-		// Enquanto uma das duplas não chegar em 12 pontos, fazer:
+		while (pontuacaoDupla1 < 12 && pontuacaoDupla2 < 12) {
+			System.out.println("\n\t\t\t\t\tPLACAR:\n\t#### DUPLA 1 (" + dupla1.getJogador1().getNome() + " e " + dupla1.getJogador2().getNome() + ") "
+					+ "(" + pontuacaoDupla1 + ") x (" + pontuacaoDupla2 + ") DUPLA 2 (" + dupla2.getJogador1().getNome() + " e " 
+					+ dupla2.getJogador2().getNome() + ") ####\n\n");
 			PartidaTruco novaPartida = new PartidaTruco(this);
 			novaPartida.partidaTruco();
 			partidas.add(novaPartida);
-		// Fim enquanto
+			if (novaPartida.getDuplaVencedora() == dupla1) {
+				pontuacaoDupla1 += novaPartida.getTipoPartida();
+			} else {
+				pontuacaoDupla2 += novaPartida.getTipoPartida();
+			}
+		}
 	}
 	
 	public ArrayList<PartidaTruco> getPartidas() {
