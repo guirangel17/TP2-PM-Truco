@@ -82,7 +82,6 @@ public class PartidaTruco {
 		return rodadas.size();
 	}
 	
-	
 	public void setTerminarPartida(boolean terminarPartida) {
 		this.terminarPartida = terminarPartida;
 	}

@@ -35,7 +35,7 @@ public class RodadaTruco {
 		boolean empateAnterior = empate;
 		int numJogador = numJogadorInicial;
 		int contador = 0; // Contador do número de cartas jogadas na rodada
-		int op; // Opcao escolhida pelo usuário
+		int op = 0; // Opcao escolhida pelo usuário
 		int i;
 		CartaTruco maiorCarta = new CartaTruco(ICarta.COPAS, 4); // Inicializada com o menor valor de carta do truco mineiro
 		
@@ -57,7 +57,9 @@ public class RodadaTruco {
 				}
 				
 			} else { // Senão
-				op = opcoesMenu(numJogador, partida.getTipoPartida());
+				if (op != 4) {
+					op = opcoesMenu(numJogador, partida.getTipoPartida());
+				}
 				
 				if (op == 1 || op == 2 || op == 3) { // Uma carta foi jogada
 					CartaTruco cartaAtual = jogaCarta(numJogador, op - 1); // Retira a carta da mão do jogador
@@ -72,14 +74,30 @@ public class RodadaTruco {
 				}
 				
 				if (op == 4) { // Pedido de Truco, Seis, Nove ou Doze
+					contador--;
+				
+					op = trataTruco(numJogador, partida.getTipoPartida());
 					
+					if (op == 1) { // Aceitou
+						
+					}
+					if (op == 2) { // Recusou
+						
+					}
+					if (op == 4) { // Aumentou
+						if (numJogador == 4) {
+							numJogador = 1;
+						} else {
+							numJogador++;
+						}
+					}
 				}
 				
 				if (op == -1) { // Deixar o jogo
 					
 				}
 			}
-			contador++;
+			contador++; // Uma carta de um jogador foi jogada
 		}
 		
 		// Verifica se houve empate entre a maior carta jogada na rodada e a carta de algum outro jogador
@@ -119,6 +137,69 @@ public class RodadaTruco {
 		}
 	}
 	
+	public int trataTruco(int numJogador, int tipoPartida) {
+		Scanner e = new Scanner(System.in);
+		int opUsuario = 0;
+		String tipo = "";
+		String proxTipo = "";
+		
+		if (tipoPartida == 2) {
+			tipo = "Truco";
+			proxTipo = "Seis";
+		} else if (tipoPartida == 4) {
+			tipo = "Seis";
+			proxTipo = "Nove";
+		} else if (tipoPartida == 8) {
+			tipo = "Nove";
+			proxTipo = "Doze";
+		} else if (tipoPartida == 10) {
+			tipo = "Doze";
+		}
+		
+		System.out.println("\n\t ##### Jogador " + numJogador + " pediu " + tipo + " #####");
+		
+		if (numJogador == 4) {
+			numJogador = 1;
+		} else {
+			numJogador++;
+		}
+		
+		imprimeMao(numJogador);
+
+		System.out.println("\n# Jogador " + numJogador + ", escolha uma opção:");
+		System.out.println("<1> para aceitar");
+		System.out.println("<2> para recusar");
+		if (tipoPartida != 10) {
+			System.out.println("<4> para pedir " + proxTipo);	
+		}
+		while (opUsuario != 1 && opUsuario != 2 && opUsuario != 4) {
+			opUsuario = e.nextInt();
+		}
+		
+		if (opUsuario == 1) {
+			System.out.println("\n\t ##### Jogador " + numJogador + " aceitou o " + tipo + " #####");
+			
+			if (tipoPartida == 2) {
+				partida.setTipoPartida(4);
+			} else if (tipoPartida == 4) {
+				partida.setTipoPartida(8);
+			} else if (tipoPartida == 8) {
+				partida.setTipoPartida(10);
+			}
+		}
+		
+		if (opUsuario == 4) {
+			if (tipoPartida == 2) {
+				partida.setTipoPartida(4);
+			} else if (tipoPartida == 4) {
+				partida.setTipoPartida(8);
+			} else if (tipoPartida == 8) {
+				partida.setTipoPartida(10);
+			}
+		}
+		return opUsuario;
+	}
+	
 	public int opcoesMenu(int numJogador, int tipoPartida) {
 		MaoJogadorTruco maoJogador = localizaMao(numJogador);
 		Scanner e = new Scanner(System.in);
@@ -142,7 +223,7 @@ public class RodadaTruco {
 			
 		if (numCartas == 3) {
 			System.out.println("\n# Jogador " + numJogador + ", escolha uma opção:\n<1, 2 ou 3> para jogar uma carta\n<4> para pedir " + tipo + "\n<-1> para deixar o jogo");
-			
+
 			while (opUsuario != 1 && opUsuario != 2 && opUsuario != 3 && opUsuario != 4) {
 				opUsuario = e.nextInt();
 			}
@@ -168,7 +249,6 @@ public class RodadaTruco {
 		Scanner e = new Scanner(System.in);
 		String tipo = "";
 		int opUsuario = 0;
-		int numCartas = maoJogador.getNumeroCartasMao();
 		
 		System.out.println("---------------------------------------------------");
 		System.out.println("\n\t\tMaior Carta Jogador " + numJogador);
