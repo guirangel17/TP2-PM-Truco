@@ -20,18 +20,37 @@ public class JogoTruco {
 	
 	public void comecarNovoJogo() {
 		while (pontuacaoDupla1 < 12 && pontuacaoDupla2 < 12) {
-			System.out.println("\n\t\t\t\t\tPLACAR:\n\t#### DUPLA 1 (" + dupla1.getJogador1().getNome() + " e " + dupla1.getJogador2().getNome() + ") "
-					+ "(" + pontuacaoDupla1 + ") x (" + pontuacaoDupla2 + ") DUPLA 2 (" + dupla2.getJogador1().getNome() + " e " 
-					+ dupla2.getJogador2().getNome() + ") ####\n\n");
+			int numJogadorInicial;
+			imprimePlacarJogo();
+			
 			PartidaTruco novaPartida = new PartidaTruco(this);
+			
+			if (partidas.size() == 0) {
+				numJogadorInicial = 1;
+			} else {
+				numJogadorInicial = partidas.get(partidas.size() - 1).getNumJogadorInicial() + 1;
+			}
+			
+			if (numJogadorInicial == 5) {
+				numJogadorInicial = 1;
+			}
+			novaPartida.setNumJogadorInicial(numJogadorInicial);
 			novaPartida.partidaTruco();
 			partidas.add(novaPartida);
+			
 			if (novaPartida.getDuplaVencedora() == dupla1) {
 				pontuacaoDupla1 += novaPartida.getTipoPartida();
 			} else {
 				pontuacaoDupla2 += novaPartida.getTipoPartida();
 			}
 		}
+	}
+	
+	public void imprimePlacarJogo() {
+		System.out.println("\n\t\t\t\t\tPLACAR:\n\t#### DUPLA 1 (" + dupla1.getJogador1().getNome() + " e " 
+				+ dupla1.getJogador2().getNome() + ") " + "(" + pontuacaoDupla1 + ") x (" + pontuacaoDupla2 
+				+ ") DUPLA 2 (" + dupla2.getJogador1().getNome() + " e " 
+				+ dupla2.getJogador2().getNome() + ") ####\n\n");
 	}
 	
 	public ArrayList<PartidaTruco> getPartidas() {

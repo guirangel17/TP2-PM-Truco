@@ -26,10 +26,15 @@ public class MaoJogadorTruco {
 	// Retorna a carta de maior valor do Jogador
 	public CartaTruco maiorCarta() {
 		CartaTruco aux;
-		aux = CartaTruco.retornaMaiorCarta(cartasMao.get(0), cartasMao.get(1));
-		if (cartasMao.size() > 2) {
-			return CartaTruco.retornaMaiorCarta(aux, cartasMao.get(2));
+		if (cartasMao.size() == 1) {
+			aux = cartasMao.get(0);
+		} else {
+			aux = CartaTruco.retornaMaiorCarta(cartasMao.get(0), cartasMao.get(1));
+			if (cartasMao.size() > 2) {
+				return CartaTruco.retornaMaiorCarta(aux, cartasMao.get(2));
+			}
 		}
+		
 		return aux;
 	}
 	
