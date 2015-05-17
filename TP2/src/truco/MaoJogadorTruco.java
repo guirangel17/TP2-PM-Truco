@@ -3,25 +3,52 @@ package truco;
 import java.util.ArrayList;
 
 public class MaoJogadorTruco {
-	private ArrayList<CartaTruco> cartas;
+	private ArrayList<CartaTruco> cartasMao;
+	private ArrayList<CartaTruco> cartasJogadas;
 	private Jogador jogador;
 	
 	public MaoJogadorTruco (Jogador jogador, BaralhoTruco baralho){
-		cartas = new ArrayList<CartaTruco>();
+		this.cartasMao = new ArrayList<CartaTruco>();
+		this.cartasJogadas = new ArrayList<CartaTruco>();
 		this.jogador = jogador;
-		cartas.add((CartaTruco) baralho.pegaCarta());
-		cartas.add((CartaTruco) baralho.pegaCarta());
-		cartas.add((CartaTruco) baralho.pegaCarta());
+		cartasMao.add((CartaTruco) baralho.pegaCarta());
+		cartasMao.add((CartaTruco) baralho.pegaCarta());
+		cartasMao.add((CartaTruco) baralho.pegaCarta());
+	}
+	
+	// Retira a carta da mão do Jogador
+	public CartaTruco jogaCarta(int indexCarta) {
+		CartaTruco cartaJogada = cartasMao.remove(indexCarta);
+		cartasJogadas.add(cartaJogada);
+		return cartaJogada;
+	}
+	
+	// Retorna a carta de maior valor do Jogador
+	public CartaTruco maiorCarta() {
+		CartaTruco aux;
+		aux = CartaTruco.retornaMaiorCarta(cartasMao.get(0), cartasMao.get(1));
+		if (cartasMao.size() > 2) {
+			return CartaTruco.retornaMaiorCarta(aux, cartasMao.get(2));
+		}
+		return aux;
+	}
+	
+	public ArrayList<CartaTruco> getCartasMao() {
+		return cartasMao;
 	}
 
-	public ArrayList<CartaTruco> getCartas() {
-		return cartas;
+	public void setCartasMao(ArrayList<CartaTruco> cartasMao) {
+		this.cartasMao = cartasMao;
 	}
-	
-	public void setCartas(ArrayList<CartaTruco> cartas) {
-		this.cartas = cartas;
+
+	public ArrayList<CartaTruco> getCartasJogadas() {
+		return cartasJogadas;
 	}
-	
+
+	public void setCartasJogadas(ArrayList<CartaTruco> cartasJogadas) {
+		this.cartasJogadas = cartasJogadas;
+	}
+
 	public Jogador getJogador() {
 		return jogador;
 	}
@@ -30,9 +57,7 @@ public class MaoJogadorTruco {
 		this.jogador = jogador;
 	}
 	
-	public int getNumeroCartas() {
-		return cartas.size();
+	public int getNumeroCartasMao() {
+		return cartasMao.size();
 	}
-	
-	// terá um método de retirar carta do arrayList, que quer dizer que a carta foi jogada
 }

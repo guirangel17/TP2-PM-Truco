@@ -18,10 +18,12 @@ public class JogoTruco {
 		this.dupla2 = dupla2;
 	}
 	
-	public void comecarNovaPartida() {
-		PartidaTruco novaPartida = new PartidaTruco(this);
-		novaPartida.comecarNovaRodada();
-		partidas.add(novaPartida);
+	public void comecarNovoJogo() {
+		// Enquanto uma das duplas não chegar em 12 pontos, fazer:
+			PartidaTruco novaPartida = new PartidaTruco(this);
+			novaPartida.partidaTruco();
+			partidas.add(novaPartida);
+		// Fim enquanto
 	}
 	
 	public ArrayList<PartidaTruco> getPartidas() {
