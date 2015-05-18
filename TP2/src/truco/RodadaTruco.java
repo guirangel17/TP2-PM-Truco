@@ -4,20 +4,20 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class RodadaTruco {
-	// Partida ‡ qual a rodada pertence
+	// Partida √† qual a rodada pertence
 	private PartidaTruco partida;
 	
-	// M„o dos jogadores
+	// M√£o dos jogadores
 	private MaoJogadorTruco maoJogador1;
 	private MaoJogadorTruco maoJogador2;
 	private MaoJogadorTruco maoJogador3;
 	private MaoJogadorTruco maoJogador4;
 	
 	private Dupla duplaVencedora; // Dupla vencedora da Rodada
-	private int numRodada; // Pode ser 1, 2 ou 3, pois h· no m·ximo 3 rodadas em uma partida
-	private int numJogadorInicial; // Primeiro jogador da rodada - o jogador que inicia a rodada È o que jogou a maior carta na rodada anterior - por default, jogador 1
+	private int numRodada; // Pode ser 1, 2 ou 3, pois h√° no m√°ximo 3 rodadas em uma partida
+	private int numJogadorInicial; // Primeiro jogador da rodada - o jogador que inicia a rodada √© o que jogou a maior carta na rodada anterior - por default, jogador 1
 	private int numJogadorAlteradorTipo; // Jogador que alterou o tipo da Partida (pediu truco/seis/nove/doze)
-	private boolean empate; // Rodada terminou empatada ou n„o
+	private boolean empate; // Rodada terminou empatada ou n√£o
 	private static final int NUM_JOGADORES = 4; 
 	
 	public RodadaTruco(PartidaTruco partida, MaoJogadorTruco maoJogador1, MaoJogadorTruco maoJogador2, MaoJogadorTruco maoJogador3, MaoJogadorTruco maoJogador4, boolean empate) {
@@ -29,18 +29,18 @@ public class RodadaTruco {
 		this.empate = empate;
 		
 		numJogadorInicial = 1;
-		numJogadorAlteradorTipo = -10; // N„o existe nenhum jogador inicialmente que fez alteraÁ„o no tipo da Partida
+		numJogadorAlteradorTipo = -10; // N√£o existe nenhum jogador inicialmente que fez altera√ß√£o no tipo da Partida
 		numRodada = partida.getNumeroRodadas();
 	}
 	
 	public void rodadaTruco() {
-		CartaTruco maiorCarta = new CartaTruco(ICarta.COPAS, 4); // Inicializada com o menor valor de carta do truco mineiro - Auxiliar na verificaÁ„o da maior carta da rodada
+		CartaTruco maiorCarta = new CartaTruco(ICarta.COPAS, 4); // Inicializada com o menor valor de carta do truco mineiro - Auxiliar na verifica√ß√£o da maior carta da rodada
 		boolean empateAnterior = empate; // Rodada anterior (se existente) empatou (true/false)
-		int contador = 0; // Contador do n˙mero de cartas jogadas na rodada
-		int op = 0; // Opcao escolhida pelo usu·rio
+		int contador = 0; // Contador do n√∫mero de cartas jogadas na rodada
+		int op = 0; // Opcao escolhida pelo usu√°rio
 		int numJogador = numJogadorInicial;
 
-		while (contador < RodadaTruco.NUM_JOGADORES && partida.getTerminarPartida() == false) { // Enquanto os 4 jogadores da rodada n„o jogar
+		while (contador < RodadaTruco.NUM_JOGADORES && partida.getTerminarPartida() == false) { // Enquanto os 4 jogadores da rodada n√£o jogar
 			if (empateAnterior) { // Se rodada anterior empatada
 				// Jogadores tem que mostrar maior carta, mudar tipo da partida, ou desistir do jogo
 				op = opcoesMenuEmpate(numJogador, partida.getTipoPartida());
@@ -48,22 +48,22 @@ public class RodadaTruco {
 				if (op == 1) { // Jogador deseja jogar sua maior carta
 					MaoJogadorTruco maoJogador = localizaMao(numJogador);
 					CartaTruco cartaAtual;
-					if (CartaTruco.empate(maoJogador.maiorCarta(), maoJogador.getCartasMao().get(0))) { // Verifica o Ìndice da maior carta
-						cartaAtual = jogaCarta(numJogador, 0); // Retira a carta da m„o do jogador
+					if (CartaTruco.empate(maoJogador.maiorCarta(), maoJogador.getCartasMao().get(0))) { // Verifica o √≠ndice da maior carta
+						cartaAtual = jogaCarta(numJogador, 0); // Retira a carta da m√£o do jogador
 					} else {
 						cartaAtual = jogaCarta(numJogador, 1);
 					}
 					
 					System.out.println("\n\t Jogador " + numJogador + " jogou: " + cartaAtual.getNome());
 					
-					// N˙mero do prÛximo jogador que ir· jogar
+					// N√∫mero do pr√≥ximo jogador que ir√° jogar
 					if (numJogador == 4) {
 						numJogador = 1;
 					} else {
 						numJogador++;
 					}
 					
-					maiorCarta = CartaTruco.retornaMaiorCarta(maiorCarta, cartaAtual); // Verifica a maior carta jogada atÈ ent„o na rodada
+					maiorCarta = CartaTruco.retornaMaiorCarta(maiorCarta, cartaAtual); // Verifica a maior carta jogada at√© ent√£o na rodada
 				}
 				
 				if (op == 4) { // Jogador deseja pedir Truco/Seis/Nove/Doze
@@ -76,11 +76,11 @@ public class RodadaTruco {
 					trataDesistencia(numJogador);
 				}
 				
-			} else { // Se rodada anterior n„o tiver terminado empatada
+			} else { // Se rodada anterior n√£o tiver terminado empatada
 				op = opcoesMenu(numJogador, partida.getTipoPartida());
 				
 				if (op == 1 || op == 2 || op == 3) { // Jogador deseja jogar uma carta
-					CartaTruco cartaAtual = jogaCarta(numJogador, op - 1); // Retira a carta da m„o do jogador
+					CartaTruco cartaAtual = jogaCarta(numJogador, op - 1); // Retira a carta da m√£o do jogador
 					
 					System.out.println("\n\t Jogador " + numJogador + " jogou: " + cartaAtual.getNome());
 					
@@ -90,7 +90,7 @@ public class RodadaTruco {
 						numJogador++;
 					}
 					
-					maiorCarta = CartaTruco.retornaMaiorCarta(maiorCarta, cartaAtual); // Verifica a maior carta jogada atÈ ent„o na rodada
+					maiorCarta = CartaTruco.retornaMaiorCarta(maiorCarta, cartaAtual); // Verifica a maior carta jogada at√© ent√£o na rodada
 				}
 				
 				if (op == 4) { // Pedido de Truco, Seis, Nove ou Doze
@@ -107,9 +107,9 @@ public class RodadaTruco {
 		}
 		
 		// Verifica se houve empate entre a maior carta jogada na rodada e a carta de algum outro jogador
-		 if (!partida.getTerminarPartida()) { // Se a partida n„o estiver finalizada
+		 if (!partida.getTerminarPartida()) { // Se a partida n√£o estiver finalizada
 			for (int i = 1; i <= RodadaTruco.NUM_JOGADORES; i++) {
-				// N„o compara com o proprio jogador nem com sua dupla
+				// N√£o compara com o proprio jogador nem com sua dupla
 				if (i != jogadorMaiorCartaRodada(maiorCarta) && i + 2 != jogadorMaiorCartaRodada(maiorCarta) && i - 2 != jogadorMaiorCartaRodada(maiorCarta)) {
 					MaoJogadorTruco maoJogadorAtual = localizaMao(i);
 						
@@ -121,13 +121,13 @@ public class RodadaTruco {
 						}
 						System.out.println("\n\n\t##A Rodada " + (numRodada + 1) + " terminou empatada. ##");
 						break;
-					} else { // Sen„o
+					} else { // Sen√£o
 						empate = false;
 					}
 				}
 			}
 			
-			if (empate == false) { // Em caso de n„o haver empate, ganha a dupla que jogou a maior carta na rodada
+			if (empate == false) { // Em caso de n√£o haver empate, ganha a dupla que jogou a maior carta na rodada
 				if (jogadorMaiorCartaRodada(maiorCarta) == 1 || jogadorMaiorCartaRodada(maiorCarta) == 3) {
 					duplaVencedora = partida.getJogo().getDupla1();
 				} else {
@@ -150,10 +150,10 @@ public class RodadaTruco {
 	}
 	
 	public void trataDesistencia(int numJogador) {
-		if (numJogador == 1 || numJogador == 3) { // AlguÈm da dupla 1 desistiu
+		if (numJogador == 1 || numJogador == 3) { // Algu√©m da dupla 1 desistiu
 			duplaVencedora = partida.getJogo().getDupla2();
 			partida.getJogo().setPontuacaoDupla1(12);
-		} else { // AlguÈm da dupla 2 desistiu
+		} else { // Algu√©m da dupla 2 desistiu
 			duplaVencedora = partida.getJogo().getDupla1();
 			partida.getJogo().setPontuacaoDupla1(12);
 		}
@@ -168,17 +168,17 @@ public class RodadaTruco {
 		int opT = 0;
 		int aux = 1;
 		int numJogadorAux = numJogador;
-		while (opT != 1 && opT != 2) { // Enquanto jogador n„o aceitar/recusar o novo tipo da partida
-			if (partida.getTipoPartida() == 2) {
+		while (opT != 1 && opT != 2) { // Enquanto jogador n√£o aceitar/recusar o novo tipo da partida
+			if (partida.getTipoPartida() == IPartidaTruco.COMUM) {
 				tipo = "Truco";
 				proxTipo = "Seis";
-			} else if (partida.getTipoPartida() == 4) {
+			} else if (partida.getTipoPartida() == IPartidaTruco.TRUCO) {
 				tipo = "Seis";
 				proxTipo = "Nove";
-			} else if (partida.getTipoPartida() == 8) {
+			} else if (partida.getTipoPartida() == IPartidaTruco.SEIS) {
 				tipo = "Nove";
 				proxTipo = "Doze";
-			} else if (partida.getTipoPartida() == 10) {
+			} else if (partida.getTipoPartida() == IPartidaTruco.NOVE) {
 				tipo = "Doze";
 				proxTipo = "Queda";
 			}
@@ -201,13 +201,13 @@ public class RodadaTruco {
 			
 			opT = trataTipoPartidaAux(numJogadorAux, proxTipo);
 			
-			if (partida.getTipoPartida() == 2) {
+			if (partida.getTipoPartida() == IPartidaTruco.COMUM) {
 				partida.setTipoPartida(4);
-			} else if (partida.getTipoPartida() == 4) {
+			} else if (partida.getTipoPartida() == IPartidaTruco.TRUCO) {
 				partida.setTipoPartida(8);
-			} else if (partida.getTipoPartida() == 8) {
+			} else if (partida.getTipoPartida() == IPartidaTruco.SEIS) {
 				partida.setTipoPartida(10);
-			} else if (partida.getTipoPartida() == 10) {
+			} else if (partida.getTipoPartida() == IPartidaTruco.NOVE) {
 				partida.setTipoPartida(12);
 			}
 			
@@ -220,13 +220,13 @@ public class RodadaTruco {
 		if (opT == 2) { // Recusou
 			System.out.println("\n\t ##### Jogador " + numJogador + " recusou o " + tipo + " #####");
 			
-			if (partida.getTipoPartida() == 4) {
+			if (partida.getTipoPartida() == IPartidaTruco.TRUCO) {
 				partida.setTipoPartida(2);
-			} else if (partida.getTipoPartida() == 8) {
+			} else if (partida.getTipoPartida() == IPartidaTruco.SEIS) {
 				partida.setTipoPartida(4);
-			} else if (partida.getTipoPartida() == 10) {
+			} else if (partida.getTipoPartida() == IPartidaTruco.NOVE) {
 				partida.setTipoPartida(8);
-			} else if (partida.getTipoPartida() == 12) {
+			} else if (partida.getTipoPartida() == IPartidaTruco.QUEDA) {
 				partida.setTipoPartida(10);
 			}
 			
@@ -245,7 +245,7 @@ public class RodadaTruco {
 		
 		imprimeMao(numJogador);
 
-		System.out.println("\n# Jogador " + numJogador + ", escolha uma opÁ„o:");
+		System.out.println("\n# Jogador " + numJogador + ", escolha uma op√ß√£o:");
 		System.out.println("<1> para aceitar");
 		System.out.println("<2> para recusar");
 		if (proxTipo != "Queda") {
@@ -273,36 +273,36 @@ public class RodadaTruco {
 		
 		imprimeMao(numJogador);
 		
-		if (tipoPartida == 2) {
+		if (tipoPartida == IPartidaTruco.COMUM) {
 			tipo = "Truco";
-		} else if (tipoPartida == 4) {
+		} else if (tipoPartida == IPartidaTruco.TRUCO) {
 			tipo = "Seis";
-		} else if (tipoPartida == 8) {
+		} else if (tipoPartida == IPartidaTruco.SEIS) {
 			tipo = "Nove";
-		} else if (tipoPartida == 10) {
+		} else if (tipoPartida == IPartidaTruco.NOVE) {
 			tipo = "Doze";
 		}
 		
-		// Jogador que alterou o tipo da partida e dupla n„o podem pedir outra alteraÁ„o no tipo da partida enquanto alguÈm da outra dupla n„o solicitar nova alteraÁ„o
-		// Adequa os menus exibidos para cada jogador de acordo com quantas cartas ele tem na m„o
+		// Jogador que alterou o tipo da partida e dupla n√£o podem pedir outra altera√ß√£o no tipo da partida enquanto algu√©m da outra dupla n√£o solicitar nova altera√ß√£o
+		// Adequa os menus exibidos para cada jogador de acordo com quantas cartas ele tem na m√£o
 		if (numJogador != numJogadorAlteradorTipo && (numJogador + 2) != numJogadorAlteradorTipo  && 
 				(numJogador - 2) != numJogadorAlteradorTipo && partida.getTipoPartida() != 12) {
 			if (numCartas == 3) {
-				System.out.println("\n# Jogador " + numJogador + ", escolha uma opÁ„o:\n<1, 2 ou 3> para jogar "
+				System.out.println("\n# Jogador " + numJogador + ", escolha uma op√ß√£o:\n<1, 2 ou 3> para jogar "
 						+ "uma carta\n<4> para pedir " + tipo + "\n<-1> para deixar o jogo");
 
 				while (opUsuario != 1 && opUsuario != 2 && opUsuario != 3 && opUsuario != 4 && opUsuario != -1) {
 					opUsuario = e.nextInt();
 				}
 			} else if (numCartas == 2) {
-				System.out.println("\n# Jogador " + numJogador + ", escolha uma opÁ„o:\n<1 ou 2> para jogar uma "
+				System.out.println("\n# Jogador " + numJogador + ", escolha uma op√ß√£o:\n<1 ou 2> para jogar uma "
 						+ "carta\n<4> para pedir " + tipo + "\n<-1> para deixar o jogo");
 				
 				while (opUsuario != 1 && opUsuario != 2 && opUsuario != 4 && opUsuario != -1) {
 					opUsuario = e.nextInt();
 				}
 			} else if (numCartas == 1) {
-				System.out.println("\n# Jogador " + numJogador + ", escolha uma opÁ„o:\n<1> para jogar a carta\n"
+				System.out.println("\n# Jogador " + numJogador + ", escolha uma op√ß√£o:\n<1> para jogar a carta\n"
 						+ "<4> para pedir " + tipo + "\n<-1> para deixar o jogo");
 				
 				while (opUsuario != 1 && opUsuario != 4 && opUsuario != -1) {
@@ -311,21 +311,21 @@ public class RodadaTruco {
 			}
 		} else {
 			if (numCartas == 3) {
-				System.out.println("\n# Jogador " + numJogador + ", escolha uma opÁ„o:\n<1, 2 ou 3> para jogar "
+				System.out.println("\n# Jogador " + numJogador + ", escolha uma op√ß√£o:\n<1, 2 ou 3> para jogar "
 						+ "uma carta\n<-1> para deixar o jogo");
 
 				while (opUsuario != 1 && opUsuario != 2 && opUsuario != 3 && opUsuario != -1) {
 					opUsuario = e.nextInt();
 				}
 			} else if (numCartas == 2) {
-				System.out.println("\n# Jogador " + numJogador + ", escolha uma opÁ„o:\n<1 ou 2> para jogar "
+				System.out.println("\n# Jogador " + numJogador + ", escolha uma op√ß√£o:\n<1 ou 2> para jogar "
 						+ "uma carta\n<-1> para deixar o jogo");
 				
 				while (opUsuario != 1 && opUsuario != 2 && opUsuario != -1) {
 					opUsuario = e.nextInt();
 				}
 			} else if (numCartas == 1) {
-				System.out.println("\n# Jogador " + numJogador + ", escolha uma opÁ„o:\n<1> para jogar a carta"
+				System.out.println("\n# Jogador " + numJogador + ", escolha uma op√ß√£o:\n<1> para jogar a carta"
 						+ "\n<-1> para deixar o jogo");
 				
 				while (opUsuario != 1 && opUsuario != -1) {
@@ -348,17 +348,17 @@ public class RodadaTruco {
 		System.out.println("\n\t\tMaior Carta Jogador " + numJogador + "(" + maoJogador.getJogador().getNome() + "):");
 		System.out.println("\t\t<1> " + maoJogador.maiorCarta().getNome());
 		
-		if (tipoPartida == 2) {
+		if (tipoPartida == IPartidaTruco.COMUM) {
 			tipo = "Truco";
-		} else if (tipoPartida == 4) {
+		} else if (tipoPartida == IPartidaTruco.TRUCO) {
 			tipo = "Seis";
-		} else if (tipoPartida == 8) {
+		} else if (tipoPartida == IPartidaTruco.SEIS) {
 			tipo = "Nove";
-		} else if (tipoPartida == 10) {
+		} else if (tipoPartida == IPartidaTruco.NOVE) {
 			tipo = "Doze";
 		}
 		
-		System.out.println("\n# Jogador " + numJogador + ", escolha uma opÁ„o:\n<1> para jogar sua carta\n<4> para pedir " + tipo + "\n<-1> para deixar o jogo");
+		System.out.println("\n# Jogador " + numJogador + ", escolha uma op√ß√£o:\n<1> para jogar sua carta\n<4> para pedir " + tipo + "\n<-1> para deixar o jogo");
 		while (opUsuario != 1 && opUsuario != 4) {
 			opUsuario = e.nextInt();
 		}
@@ -367,7 +367,7 @@ public class RodadaTruco {
 	}
 	
 	public void imprimeMao(int numJogador) {
-		// Localiza a mao do jogador passado por par‚metro
+		// Localiza a mao do jogador passado por par√¢metro
 		MaoJogadorTruco maoJogador = localizaMao(numJogador);
 		
 		// Imprime as cartas do jogador
@@ -378,7 +378,7 @@ public class RodadaTruco {
 	}
 	
 	public int jogadorMaiorCartaRodada(CartaTruco maiorCarta) {
-		// Retorna o n˙mero do jogador que possui a maior carta da rodada
+		// Retorna o n√∫mero do jogador que possui a maior carta da rodada
 		for(int i = 1; i <= RodadaTruco.NUM_JOGADORES; i++) {
 			MaoJogadorTruco maoJogadorAtual = localizaMao(i);
 			if(CartaTruco.empate(maiorCarta, maoJogadorAtual.getCartasJogadas().get(numRodada))) {
