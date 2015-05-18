@@ -152,7 +152,7 @@ public class RodadaTruco {
 	public void trataDesistencia(int numJogador) {
 		if (numJogador == 1 || numJogador == 3) { // Alguém da dupla 1 desistiu
 			duplaVencedora = partida.getJogo().getDupla2();
-			partida.getJogo().setPontuacaoDupla1(12);
+			partida.getJogo().setPontuacaoDupla2(12);
 		} else { // Alguém da dupla 2 desistiu
 			duplaVencedora = partida.getJogo().getDupla1();
 			partida.getJogo().setPontuacaoDupla1(12);
