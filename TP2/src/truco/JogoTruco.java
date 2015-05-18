@@ -28,8 +28,10 @@ public class JogoTruco {
 			if (partidas.size() == 0) {
 				numJogadorInicial = 1;
 			} else {
-				numJogadorInicial = partidas.get(partidas.size() - 1).getNumJogadorInicial() + 1;
+				numJogadorInicial = partidas.get(getNumeroPartidas() - 1).getNumJogadorInicial() + 1;
 			}
+			
+			System.out.println("Partida " + (getNumeroPartidas() + 1));
 			
 			if (numJogadorInicial == 5) {
 				numJogadorInicial = 1;
@@ -44,6 +46,8 @@ public class JogoTruco {
 				pontuacaoDupla2 += novaPartida.getTipoPartida();
 			}
 		}
+		
+		imprimeVencedorJogo();
 	}
 	
 	public void imprimePlacarJogo() {
@@ -51,6 +55,16 @@ public class JogoTruco {
 				+ dupla1.getJogador2().getNome() + ") " + "(" + pontuacaoDupla1 + ") x (" + pontuacaoDupla2 
 				+ ") DUPLA 2 (" + dupla2.getJogador1().getNome() + " e " 
 				+ dupla2.getJogador2().getNome() + ") ####\n\n");
+	}
+	
+	public void imprimeVencedorJogo() {
+		if (pontuacaoDupla1 >= 12) {
+			System.out.println("\n\n\t##### DUPLA 1 (" + dupla1.getJogador1().getNome() 
+					+ " e " + dupla1.getJogador2().getNome() + ") VENCEU! #####");
+		} else {
+			System.out.println("\n\n\t##### DUPLA 2 (" + dupla2.getJogador1().getNome() 
+					+ " e " + dupla2.getJogador2().getNome() + ") VENCEU! #####");
+		}
 	}
 	
 	public ArrayList<PartidaTruco> getPartidas() {

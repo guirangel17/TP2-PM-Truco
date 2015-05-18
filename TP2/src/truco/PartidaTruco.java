@@ -11,6 +11,7 @@ public class PartidaTruco {
 	protected BaralhoTruco baralho;
 	private boolean terminarPartida;
 	private Dupla duplaVencedora;
+	private int numPartida;
 	
 	public PartidaTruco(JogoTruco jogo) {
 		this.jogo = jogo;
@@ -18,6 +19,8 @@ public class PartidaTruco {
 		baralho = new BaralhoTruco();
 		baralho.embaralhar();
 		tipoPartida = 2;
+
+		numPartida = this.jogo.getNumeroPartidas();
 	}
 	
 	public void comecarNovaPartida() {
@@ -41,16 +44,18 @@ public class PartidaTruco {
 	}
 	
 	public void partidaTruco() {
+		System.out.println("\nRodada " + (getNumeroRodadas() + 1) + ": partida valendo " + tipoPartida + " pontos.");
 		comecarNovaPartida();
 		
 		while(!terminarPartida) { // Enquanto partida não for finalizada
-			RodadaTruco novaRodada = new RodadaTruco(this, rodadas.get(rodadas.size() - 1).getMaoJogador1(), rodadas.get(rodadas.size() - 1).getMaoJogador2(), 
-					rodadas.get(rodadas.size() - 1).getMaoJogador3(), rodadas.get(rodadas.size() - 1).getMaoJogador4(), rodadas.get(rodadas.size() - 1).getEmpate());
-			novaRodada.setNumJogadorInicial(rodadas.get(rodadas.size() - 1).getNumJogadorInicial());
+			RodadaTruco novaRodada = new RodadaTruco(this, rodadas.get(getNumeroRodadas() - 1).getMaoJogador1(), rodadas.get(getNumeroRodadas() - 1).getMaoJogador2(), 
+					rodadas.get(getNumeroRodadas() - 1).getMaoJogador3(), rodadas.get(getNumeroRodadas() - 1).getMaoJogador4(), rodadas.get(getNumeroRodadas() - 1).getEmpate());
+			novaRodada.setNumJogadorInicial(rodadas.get(getNumeroRodadas() - 1).getNumJogadorInicial());
+			System.out.println("\nRodada " + (getNumeroRodadas() + 1) + ": partida valendo " + tipoPartida + " pontos.");
 			novaRodada.rodadaTruco();
 			rodadas.add(novaRodada);
 			
-			if (rodadas.get(rodadas.size() - 1).getEmpate() == false) {
+			if (rodadas.get(getNumeroRodadas() - 1).getEmpate() == false) {
 				if (novaRodada.getEmpate() == false) {
 					if (novaRodada.getDuplaVencedora() == rodadas.get(0).getDuplaVencedora()){
 						terminarPartida = true;
@@ -69,13 +74,15 @@ public class PartidaTruco {
 	}
 	
 	public void imprimeVencedorPartida() {
-		if (rodadas.size() == 1) { // Se a partida tiver terminado com uma rodada, o vencedor da primeira rodada é o vencedor da partida
+		if (getNumeroRodadas() == 1) { // Se a partida tiver terminado com uma rodada, o vencedor da primeira rodada é o vencedor da partida
 			duplaVencedora = rodadas.get(0).getDuplaVencedora();
-		} else if (rodadas.size() == 2) { // Se a partida tiver terminado com duas rodadas, o vencedor da segunda rodada é o vencedor da partida
+			System.out.println("\n\t### Os vencedores da Partida " + (numPartida + 1) + " foram " + duplaVencedora.getJogador1().getNome() + " e " + duplaVencedora.getJogador2().getNome() + " ###");
+		} else if (getNumeroRodadas() == 2) { // Se a partida tiver terminado com duas rodadas, o vencedor da segunda rodada é o vencedor da partida
 			duplaVencedora = rodadas.get(1).getDuplaVencedora();
-		} else if (rodadas.size() == 3) { // Se a partida tiver terminado com três rodadas
+			System.out.println("\n\t### Os vencedores da Partida " + (numPartida + 1) + " foram " + duplaVencedora.getJogador1().getNome() + " e " + duplaVencedora.getJogador2().getNome() + " ###");
+		} else if (getNumeroRodadas() == 3) { // Se a partida tiver terminado com três rodadas
 			if (rodadas.get(0).getEmpate() == true && rodadas.get(1).getEmpate() == true && rodadas.get(2).getEmpate() == true) {
-				System.out.println("\n\t### A partida terminou empatada. Nenhuma dupla ganhará pontos. ###");
+				System.out.println("\n\t### A partida " + (numPartida + 1) + " terminou empatada. Nenhuma dupla ganhará pontos. ###");
 			} else {
 				if (rodadas.get(0).getEmpate() == true && rodadas.get(1).getEmpate() == true) { // Se as duas primeiras rodadas tiverem terminado empatadas, o vencedor da terceira rodada é o vencedor da partida
 					duplaVencedora = rodadas.get(2).getDuplaVencedora();
@@ -91,6 +98,14 @@ public class PartidaTruco {
 				System.out.println("\n\t### Os vencedores da partida foram " + duplaVencedora.getJogador1().getNome() + " e " + duplaVencedora.getJogador2().getNome() + " ###");
 			}
 		}
+	}
+	
+	public void setNumPartida(int numPartida) {
+		this.numPartida = numPartida;
+	}
+	
+	public int getNumPartida(){
+		return numPartida;
 	}
 	
 	public JogoTruco getJogo() {
