@@ -12,7 +12,7 @@ public class BaralhoTruco extends Baralho {
 		
 		for(int naipe = Carta.primeiroNaipe(); naipe <= Carta.ultimoNaipe(); naipe++) {
 			for(int valor = Carta.menorValor(); valor <= Carta.maiorValor(); valor++) {
-				if (valor == 8)
+				if (valor == 8) // Não insere os valores 8, 9 e 10 em um baralho de truco
 					valor = 10;
 				else 
 					listaCartas.add(criaCarta(naipe, valor)); // Preenche o baralho com cartas de truco

@@ -7,8 +7,7 @@ import java.util.Collections;
  * Um baralho comum formado por uma lista de 52 cartas:
  * contem 13 valores (AS, 2, 3, ..., 10, VALETE, DAMA, REI) de 4 naipes (COPAS, ESPADAS, OUROS, PAUS)
  */
-public class Baralho
-{
+public class Baralho {
 	protected ArrayList<Carta> listaCartas;
 	
 	public Baralho() {

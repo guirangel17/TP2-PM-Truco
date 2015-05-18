@@ -26,11 +26,11 @@ public class MaoJogadorTruco {
 	// Retorna a carta de maior valor do Jogador
 	public CartaTruco maiorCarta() {
 		CartaTruco aux;
-		if (cartasMao.size() == 1) {
-			aux = cartasMao.get(0);
-		} else {
-			aux = CartaTruco.retornaMaiorCarta(cartasMao.get(0), cartasMao.get(1));
-			if (cartasMao.size() > 2) {
+		if (cartasMao.size() == 1) { // Se o jogador possuir apenas uma carta na mão
+			aux = cartasMao.get(0); // Retorna a carta
+		} else { // Senão
+			aux = CartaTruco.retornaMaiorCarta(cartasMao.get(0), cartasMao.get(1)); // Caso tenha duas cartas na mão
+			if (cartasMao.size() > 2) { // Caso tenha três cartas na mão
 				return CartaTruco.retornaMaiorCarta(aux, cartasMao.get(2));
 			}
 		}

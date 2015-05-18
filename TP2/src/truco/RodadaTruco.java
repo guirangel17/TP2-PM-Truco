@@ -13,11 +13,11 @@ public class RodadaTruco {
 	private MaoJogadorTruco maoJogador3;
 	private MaoJogadorTruco maoJogador4;
 	
-	private Dupla duplaVencedora;
-	private int numRodada; // Pode ser 1,2 ou 3, pois há no máximo 3 rodadas em uma partida
+	private Dupla duplaVencedora; // Dupla vencedora da Rodada
+	private int numRodada; // Pode ser 1, 2 ou 3, pois há no máximo 3 rodadas em uma partida
 	private int numJogadorInicial; // Primeiro jogador da rodada - o jogador que inicia a rodada é o que jogou a maior carta na rodada anterior - por default, jogador 1
-	private int numJogadorAlteradorTipo;
-	private boolean empate;
+	private int numJogadorAlteradorTipo; // Jogador que alterou o tipo da Partida (pediu truco/seis/nove/doze)
+	private boolean empate; // Rodada terminou empatada ou não
 	private static final int NUM_JOGADORES = 4; 
 	
 	public RodadaTruco(PartidaTruco partida, MaoJogadorTruco maoJogador1, MaoJogadorTruco maoJogador2, MaoJogadorTruco maoJogador3, MaoJogadorTruco maoJogador4, boolean empate) {
@@ -29,7 +29,7 @@ public class RodadaTruco {
 		this.empate = empate;
 		
 		numJogadorInicial = 1;
-		numJogadorAlteradorTipo = -10;
+		numJogadorAlteradorTipo = -10; // Não existe nenhum jogador inicialmente que fez alteração no tipo da Partida
 		numRodada = partida.getNumeroRodadas();
 	}
 	
@@ -42,6 +42,7 @@ public class RodadaTruco {
 
 		while (contador < RodadaTruco.NUM_JOGADORES && partida.getTerminarPartida() == false) { // Enquanto os 4 jogadores da rodada não jogar
 			if (empateAnterior) { // Se rodada anterior empatada
+				// Jogadores tem que mostrar maior carta, mudar tipo da partida, ou desistir do jogo
 				op = opcoesMenuEmpate(numJogador, partida.getTipoPartida());
 				
 				if (op == 1) { // Jogador deseja jogar sua maior carta
@@ -106,7 +107,7 @@ public class RodadaTruco {
 		}
 		
 		// Verifica se houve empate entre a maior carta jogada na rodada e a carta de algum outro jogador
-		 if (!partida.getTerminarPartida()) {
+		 if (!partida.getTerminarPartida()) { // Se a partida não estiver finalizada
 			for (int i = 1; i <= RodadaTruco.NUM_JOGADORES; i++) {
 				// Não compara com o proprio jogador nem com sua dupla
 				if (i != jogadorMaiorCartaRodada(maiorCarta) && i + 2 != jogadorMaiorCartaRodada(maiorCarta) && i - 2 != jogadorMaiorCartaRodada(maiorCarta)) {
@@ -149,10 +150,10 @@ public class RodadaTruco {
 	}
 	
 	public void trataDesistencia(int numJogador) {
-		if (numJogador == 1 || numJogador == 3) {
+		if (numJogador == 1 || numJogador == 3) { // Alguém da dupla 1 desistiu
 			duplaVencedora = partida.getJogo().getDupla2();
 			partida.getJogo().setPontuacaoDupla1(12);
-		} else {
+		} else { // Alguém da dupla 2 desistiu
 			duplaVencedora = partida.getJogo().getDupla1();
 			partida.getJogo().setPontuacaoDupla1(12);
 		}
@@ -167,7 +168,7 @@ public class RodadaTruco {
 		int opT = 0;
 		int aux = 1;
 		int numJogadorAux = numJogador;
-		while (opT != 1 && opT != 2) {
+		while (opT != 1 && opT != 2) { // Enquanto jogador não aceitar/recusar o novo tipo da partida
 			if (partida.getTipoPartida() == 2) {
 				tipo = "Truco";
 				proxTipo = "Seis";
@@ -257,14 +258,13 @@ public class RodadaTruco {
 				opUsuario = e.nextInt();
 			}
 		}
-		
-		
+
 		return opUsuario;
 	}
 	
 	public int opcoesMenu(int numJogador, int tipoPartida) {
-		MaoJogadorTruco maoJogador = localizaMao(numJogador);
 		Scanner e = new Scanner(System.in);
+		MaoJogadorTruco maoJogador = localizaMao(numJogador);
 		String tipo = "";
 		int opUsuario = 0;
 		int numCartas = maoJogador.getNumeroCartasMao();
@@ -283,21 +283,27 @@ public class RodadaTruco {
 			tipo = "Doze";
 		}
 		
-		if (numJogador != numJogadorAlteradorTipo && (numJogador + 2) != numJogadorAlteradorTipo  && (numJogador - 2) != numJogadorAlteradorTipo && partida.getTipoPartida() != 12) {
+		// Jogador que alterou o tipo da partida e dupla não podem pedir outra alteração no tipo da partida enquanto alguém da outra dupla não solicitar nova alteração
+		// Adequa os menus exibidos para cada jogador de acordo com quantas cartas ele tem na mão
+		if (numJogador != numJogadorAlteradorTipo && (numJogador + 2) != numJogadorAlteradorTipo  && 
+				(numJogador - 2) != numJogadorAlteradorTipo && partida.getTipoPartida() != 12) {
 			if (numCartas == 3) {
-				System.out.println("\n# Jogador " + numJogador + ", escolha uma opção:\n<1, 2 ou 3> para jogar uma carta\n<4> para pedir " + tipo + "\n<-1> para deixar o jogo");
+				System.out.println("\n# Jogador " + numJogador + ", escolha uma opção:\n<1, 2 ou 3> para jogar "
+						+ "uma carta\n<4> para pedir " + tipo + "\n<-1> para deixar o jogo");
 
 				while (opUsuario != 1 && opUsuario != 2 && opUsuario != 3 && opUsuario != 4 && opUsuario != -1) {
 					opUsuario = e.nextInt();
 				}
 			} else if (numCartas == 2) {
-				System.out.println("\n# Jogador " + numJogador + ", escolha uma opção:\n<1 ou 2> para jogar uma carta\n<4> para pedir " + tipo + "\n<-1> para deixar o jogo");
+				System.out.println("\n# Jogador " + numJogador + ", escolha uma opção:\n<1 ou 2> para jogar uma "
+						+ "carta\n<4> para pedir " + tipo + "\n<-1> para deixar o jogo");
 				
 				while (opUsuario != 1 && opUsuario != 2 && opUsuario != 4 && opUsuario != -1) {
 					opUsuario = e.nextInt();
 				}
 			} else if (numCartas == 1) {
-				System.out.println("\n# Jogador " + numJogador + ", escolha uma opção:\n<1> para jogar a carta\n<4> para pedir " + tipo + "\n<-1> para deixar o jogo");
+				System.out.println("\n# Jogador " + numJogador + ", escolha uma opção:\n<1> para jogar a carta\n"
+						+ "<4> para pedir " + tipo + "\n<-1> para deixar o jogo");
 				
 				while (opUsuario != 1 && opUsuario != 4 && opUsuario != -1) {
 					opUsuario = e.nextInt();
@@ -305,19 +311,22 @@ public class RodadaTruco {
 			}
 		} else {
 			if (numCartas == 3) {
-				System.out.println("\n# Jogador " + numJogador + ", escolha uma opção:\n<1, 2 ou 3> para jogar uma carta\n<-1> para deixar o jogo");
+				System.out.println("\n# Jogador " + numJogador + ", escolha uma opção:\n<1, 2 ou 3> para jogar "
+						+ "uma carta\n<-1> para deixar o jogo");
 
 				while (opUsuario != 1 && opUsuario != 2 && opUsuario != 3 && opUsuario != -1) {
 					opUsuario = e.nextInt();
 				}
 			} else if (numCartas == 2) {
-				System.out.println("\n# Jogador " + numJogador + ", escolha uma opção:\n<1 ou 2> para jogar uma carta\n<-1> para deixar o jogo");
+				System.out.println("\n# Jogador " + numJogador + ", escolha uma opção:\n<1 ou 2> para jogar "
+						+ "uma carta\n<-1> para deixar o jogo");
 				
 				while (opUsuario != 1 && opUsuario != 2 && opUsuario != -1) {
 					opUsuario = e.nextInt();
 				}
 			} else if (numCartas == 1) {
-				System.out.println("\n# Jogador " + numJogador + ", escolha uma opção:\n<1> para jogar a carta\n<-1> para deixar o jogo");
+				System.out.println("\n# Jogador " + numJogador + ", escolha uma opção:\n<1> para jogar a carta"
+						+ "\n<-1> para deixar o jogo");
 				
 				while (opUsuario != 1 && opUsuario != -1) {
 					opUsuario = e.nextInt();

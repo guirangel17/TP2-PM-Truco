@@ -6,7 +6,7 @@ public class JogoTruco {
 	// Partidas pertencentes ao jogo
 	private ArrayList<PartidaTruco> partidas;
 	
-	// Duplas que estão jogando e suas respectivas pontuações no jogo atual
+	// Duplas que estão no Jogo e suas respectivas pontuações no Jogo atual
 	private Dupla dupla1;
 	private Dupla dupla2;
 	private int pontuacaoDupla1;
@@ -19,15 +19,17 @@ public class JogoTruco {
 	}
 	
 	public void comecarNovoJogo() {
+		// Enquanto nenhuma das duplas atingir 12 pontos
 		while (pontuacaoDupla1 < 12 && pontuacaoDupla2 < 12) {
 			int numJogadorInicial;
 			imprimePlacarJogo();
 			
-			PartidaTruco novaPartida = new PartidaTruco(this);
+			PartidaTruco novaPartida = new PartidaTruco(this); // Instância de uma nova Partida
 			
-			if (partidas.size() == 0) {
-				numJogadorInicial = 1;
+			if (getNumeroPartidas() == 0) { // Se for a primeira partida do jogo
+				numJogadorInicial = 1; // Quem irá começar jogando é o jogador número 1 (primeiro jogador da dupla 1)
 			} else {
+				// Senão, quem irá começar jogando a partida é o jogador à direita do jogador que iniciou a última partida
 				numJogadorInicial = partidas.get(getNumeroPartidas() - 1).getNumJogadorInicial() + 1;
 			}
 			
@@ -36,10 +38,12 @@ public class JogoTruco {
 			if (numJogadorInicial == 5) {
 				numJogadorInicial = 1;
 			}
-			novaPartida.setNumJogadorInicial(numJogadorInicial);
-			novaPartida.partidaTruco();
-			partidas.add(novaPartida);
 			
+			novaPartida.setNumJogadorInicial(numJogadorInicial); // Set jogador inicial
+			novaPartida.partidaTruco(); // Inicia nova partida
+			partidas.add(novaPartida); // Adiciona partida ao Array de partidas
+			
+			// Associa os pontos da partida à dupla vencedora
 			if (novaPartida.getDuplaVencedora() == dupla1) {
 				pontuacaoDupla1 += novaPartida.getTipoPartida();
 			} else {
