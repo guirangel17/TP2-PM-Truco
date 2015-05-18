@@ -1,0 +1,33 @@
+SOBRE
+
+# O jogo deve ser jogado por 4 pessoas, as quais formarão duas duplas. Cada participante senta em frente à sua dupla formando assim, uma espécie de roda.
+
+# O objetivo do jogo é ganhar 12 pontos primeiro, sendo assim, a primeira dupla que alcançar 12 pontos será a campeã do jogo. 
+  Para isso, são jogadas várias partidas, onde cada partida pode valer 2, 4, 8, 10 ou até 12 pontos. Cada partida é composta por três rodadas, 
+  nas quais cada jogador deve jogar uma carta, e a dupla que tiver a maior carta ganha a rodada. Para ganhar a partida a dupla deve ganhar duas das três rodadas. 
+
+# Antes de começar uma nova partida, o baralho é embaralhado por uma das 4 pessoas seguindo o sentido anti-horário, ou seja, a cada nova partida, 
+  a pessoa a embaralhar estará à direita da última pessoa que embaralhou o baralho. Após isso, a pessoa que embaralhou distribui 3 cartas à cada participante, 
+  começando pelo participante à sua direita, o qual jogará a primeira carta. Em seguida, o jogador à direita do primeiro jogador joga uma carta e assim sucessivamente, 
+  seguindo o sentido anti-horário. O jogador que ganha a rodada é o primeiro a jogar a carta na próxima rodada, continuando o jogo no sentido anti-horário. 
+  
+# Em caso de empate em alguma rodada, ganha a partida a dupla que ganhou a primeira rodada. Caso o empate seja na primeira rodada, cada jogador deve mostrar sua maior 
+  carta e aquele que tiver a maior de todas ganhará os pontos para sua dupla. 
+  
+# Um jogador pode aumentar o valor da partida pedindo “truco” e a dupla adversária tem a opção de aceitar ou não. Caso não aceite, a dupla que pediu “truco” ganha a partida. 
+  Caso aceite, a partida passa a valer quatro pontos e a dupla adversária pode aumentar o valor pedindo “seis”. Da mesma forma, a partida pode ir aumentando seu valor até 
+  valer 12 pontos. Abaixo segue a nomenclatura para aumentar o valor da partida:
+	“Truco”: A partida passa a valer quatro pontos
+	“Seis”: A partida passa a valer oito pontos 
+	“Nove”: A partida passa a valer dez pontos
+	“Doze”: A partida passa a valer doze pontos
+
+
+
+# O objetivo deste trabalho é praticar as etapas de análise e projeto de um sistema vistas em sala de aula, além de continuar praticando os conceitos de orientação a 
+  objetos utilizando a linguagem Java. Para isso, foi proposta a implementação de um jogo de cartas, com tema a ser escolhido pelas duplas de alunos, desde que o mesmo 
+  tema não seja implementado por mais de quatro duplas.
+  
+  Trabalho desenvolvido pelos alunos: Guilherme Rangel da Silva Moura/Lucas Henrique Costa de Lima
+
+
